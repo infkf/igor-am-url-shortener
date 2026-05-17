@@ -18,6 +18,12 @@ class UrlsController < ApplicationController
     end
   end
 
+  def destroy
+    @url = Url.find(params[:id])
+    @url.destroy
+    redirect_to urls_path, notice: "URL was successfully deleted."
+  end
+
   private
 
   def url_params

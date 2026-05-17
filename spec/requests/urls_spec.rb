@@ -64,4 +64,27 @@ RSpec.describe "Urls", type: :request do
       end
     end
   end
+
+  describe "DELETE /urls/:id" do
+    it "requires authentication" do
+      url = Url.create!(original_url: "https://example.com")
+      delete url_path(url)
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    context "when authenticated" do
+      it "deletes the URL" do
+        url = Url.create!(original_url: "https://example.com")
+        expect {
+          delete url_path(url), headers: auth_headers
+        }.to change(Url, :count).by(-1)
+      end
+
+      it "redirects to the index" do
+        url = Url.create!(original_url: "https://example.com")
+        delete url_path(url), headers: auth_headers
+        expect(response).to redirect_to(urls_path)
+      end
+    end
+  end
 end

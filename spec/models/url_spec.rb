@@ -12,6 +12,24 @@ RSpec.describe Url, type: :model do
       expect(url).to be_valid
     end
 
+    it "is valid with a bare domain (no protocol)" do
+      url = Url.new(original_url: "woman.ru")
+      expect(url).to be_valid
+      expect(url.original_url).to eq("https://woman.ru")
+    end
+
+    it "does not modify URLs that already have a protocol" do
+      url = Url.new(original_url: "http://woman.ru")
+      expect(url).to be_valid
+      expect(url.original_url).to eq("http://woman.ru")
+    end
+
+    it "strips leading/trailing whitespace" do
+      url = Url.new(original_url: "  example.com  ")
+      expect(url).to be_valid
+      expect(url.original_url).to eq("https://example.com")
+    end
+
     it "is invalid without an original_url" do
       url = Url.new(original_url: nil)
       expect(url).not_to be_valid
