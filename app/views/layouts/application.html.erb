@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Igor Am Url Shortener" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Igor Am Url Shortener">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="bg-gray-50 text-gray-900 font-sans antialiased">
+    <nav class="bg-white shadow-sm border-b border-gray-200">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16 items-center">
+          <div class="flex-shrink-0 flex items-center">
+            <%= link_to "🔗 URL Shortener", root_path, class: "text-xl font-bold tracking-tight text-indigo-600" %>
+          </div>
+          <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+            <%= link_to "Dashboard", urls_path, class: "border-indigo-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" %>
+            <%= link_to "New URL", new_url_path, class: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium" %>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto mt-10 px-4 sm:px-6 lg:px-8">
+      <% if notice %>
+        <div class="rounded-md bg-green-50 p-4 mb-6 shadow-sm border border-green-200">
+          <div class="flex">
+            <div class="ml-3">
+              <p class="text-sm font-medium text-green-800"><%= notice %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <% if alert %>
+        <div class="rounded-md bg-red-50 p-4 mb-6 shadow-sm border border-red-200">
+          <div class="flex">
+            <div class="ml-3">
+              <p class="text-sm font-medium text-red-800"><%= alert %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <%= yield %>
+    </main>
+  </body>
+</html>
