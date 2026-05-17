@@ -66,3 +66,8 @@ Short code generation only runs if `short_code` is blank — a provided custom c
 - `app/views/redirects/show.html.erb` — scaffold placeholder, controller redirects instead
 - `app/javascript/controllers/hello_controller.js` — default Stimulus boilerplate
 - `app/helpers/urls_helper.rb`, `app/helpers/redirects_helper.rb` — empty modules
+
+
+
+
+
