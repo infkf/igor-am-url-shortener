@@ -6,6 +6,8 @@ services:
     environment:
       PORT: ${PORT}
       RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+      ADMIN_USERNAME: ${ADMIN_USERNAME:-admin}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
     volumes:
       - storage:/rails/storage
 
